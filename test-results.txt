@@ -1,0 +1,29 @@
+PASS H2 + O2 -> H2O, 3 mol H2 + 2 mol O2
+PASS exact stoichiometric mixture
+PASS zero reactant gives zero product
+PASS reject fractional coefficient
+PASS dilution C1V1=C2V2
+PASS acid pH 0.01 M
+PASS base pH 0.01 M at 25 C
+PASS reject dilute strong acid approximation
+PASS CH4 tetrahedral
+PASS NH3 trigonal pyramidal
+PASS H2O bent
+PASS CO2 linear
+PASS SF6 octahedral
+PASS XeF4 square planar
+PASS reject invalid electron regions
+PASS script syntax
+PASS service worker contains all script assets
+TOTAL 17 tests passed
+PASS 118 elements at beginning
+PASS element symbols unique
+PASS all rows have four fields
+PASS ionic charges integer or blank
+PASS no empty formula/name
+PASS all JS syntax
+PASS service worker caches all script assets
+PASS five bottom tabs
+PASS correct VSEPR
+PASS strong acid and base reference calculations
+PASS total 10 checks; dataset rows 240

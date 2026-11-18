@@ -1,0 +1,16 @@
+{
+  "curatedRecords": 240,
+  "groupCounts": {
+    "element": 118,
+    "ion": 25,
+    "poly": 26,
+    "ionic": 29,
+    "base": 4,
+    "acid": 10,
+    "molecular": 11,
+    "hydrate": 3,
+    "organic": 14
+  },
+  "syntaxAndAtomSymbolFailures": [],
+  "scope": "Validates chemical formula syntax and element symbols against RDKit; does NOT verify nomenclature, chemical stability, oxidation states, existence or independent scholarly accuracy."
+}

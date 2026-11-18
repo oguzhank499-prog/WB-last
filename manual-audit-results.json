@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "handAuthoredQuestionsChecked": 71,
+  "method": "Explicit independent answer-key cross-check + option uniqueness + explanation presence",
+  "limitation": "Explanations checked for presence, not individually verified against external scholarly sources"
+}

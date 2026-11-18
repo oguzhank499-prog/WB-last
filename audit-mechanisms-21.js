@@ -1,0 +1,34 @@
+'use strict';
+const fs=require('fs'),vm=require('vm'),assert=require('node:assert/strict');
+const s=fs.readFileSync(__dirname+'/wb16.js','utf8');
+const ctx={Math};vm.createContext(ctx);
+const mechanismSrc=s.slice(s.indexOf('const mechanisms='),s.indexOf('\nfunction showMechanism'));
+vm.runInContext(mechanismSrc+';globalThis.mechanisms=mechanisms;',ctx);
+const mechanisms=ctx.mechanisms;
+assert.equal(mechanisms.length,5);
+const byName=Object.fromEntries(mechanisms.map(m=>[m[0],m]));
+const sn2=byName['SN2 yer değiştirme'];
+assert(sn2[1].includes('CH₃OH + Br⁻'));
+assert(sn2[4].includes('konfigürasyon ters'));
+const hbr=byName['Alken + HBr (peroksitsiz)'];
+assert(hbr[1].includes('CH₃–CHBr–CH₃'));
+assert(hbr[5].includes('Markovnikov'));
+const brom=byName['Radikal bromlama'];
+assert(brom[1].includes('CH₃Br + HBr'));
+assert(brom[3].includes('HBr + ·CH₃'));
+const ozone=byName['Rezonans'];
+assert(ozone[1].includes('⁻O–O⁺=O ↔ O=O⁺–O⁻'));
+assert(ozone[5].includes('eşdeğer'));
+const calcSrc=s.slice(s.indexOf('function calculateSteps('),s.indexOf('\nfunction stepLabels'));
+vm.runInContext('const e=1e-14;'+calcSrc+';globalThis.calc=calculateSteps;',ctx);
+const calc=ctx.calc;
+const near=(a,b,tol=1e-6)=>assert(Math.abs(a-b)<tol,`${a} != ${b}`);
+const numberInLastLine=(kind,a,b,c)=>Number(calc(kind,a,b,c).at(-1).match(/= ([0-9.eE+-]+) (?:mol\/L|mL)/)?.[1]);
+near(numberInLastLine('molarity',2,0.5,1),4);
+assert(calc('dilution',1,10,0.1).at(-1).includes('90.00000'));
+assert(calc('ph',0,1,1).at(-1).includes('7.00000'));
+assert(calc('ph',0.01,1,1).at(-1).includes('2.00000'));
+for(const args of [['molarity',1,0,1],['molarity',-1,1,1],['dilution',0.1,10,1],['ph',-1,1,1]]){
+ assert.throws(()=>calc(...args));
+}
+console.log('PASS: 5 mechanism entries, ozone formal charges, SN2, HBr, radical bromination, molarity, dilution, acid pH, invalid inputs');
