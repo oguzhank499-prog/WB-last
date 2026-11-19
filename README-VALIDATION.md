@@ -1,20 +1,19 @@
-# WB 1.4 — Kimyasal doğruluk ve hesaplama düzeltmesi
+# WB 5.1 — Kimyasal doğruluk denetimi (ilk aşama)
 
-WB 1.3 kodu ve kayıt anahtarları korunarak geliştirildi. Sürüm numarası WB 1.4; PWA önbelleği v17.
+Bu paket WB 5.0 üzerine kuruludur. `node audit-chemistry.js`, `node verify.js`, `node verify5.js` komutlarıyla kontrol edilebilir.
 
-## Düzeltme
+## Bu turda gerçekten kontrol edilenler
+- 118 element kaydı ve element sembollerinin benzersizliği.
+- 948 formül/ad kaydının boş olmaması ve formül anahtarlarının benzersizliği.
+- Otomatik üretilen 708 iyonik formülün, girilmiş katyon/anyon yüklerine göre **elektriksel olarak nötr** ve en küçük tam sayı oranında olması.
+- 241 kavramsal sorunun 4 farklı şık içermesi, işaretli cevabın tam bir kez bulunması ve açıklama alanının boş olmaması.
+- Dokuz seçilmiş bileşik için beklenen formül/ad eşleşmeleri.
+- Daha önceki 27 otomatik kontrol.
 
-Önceki kuvvetli asit/baz pH aracı 10⁻⁶ M altındaki çözeltileri reddediyordu. Yeni araç, **25 °C'de ideal çözelti** ve **tam ayrışan tek protonlu asit / tek OH⁻ veren baz** varsayımıyla suyun otoiyonlaşmasını da dahil eder. [H⁺][OH⁻]=10⁻¹⁴ ve elektriksel yük dengesi birlikte çözülür. Özellikle 10⁻⁸ M gibi seyreltik çözeltilerde pH'ı yanlışlıkla 8 veya 6 göstermemek için bu önemlidir.
+## Düzeltilenler
+- `CH₃COOH` iki ayrı adla tekrar ediyordu. İkinci kaydı `CH₃CH₂COOH / Propanoik asit` olarak değiştirerek çift kayıt giderildi. Toplam kayıt sayısı korunur.
+- Yük dengelemesiyle **otomatik türetilen** bileşiklerin kararlı/izole edilebilir veya çözünür olduğu izlenimini önlemek için açıklama ve sözlük uyarıları eklendi.
+- PWA önbelleği v13'e yükseltildi.
 
-Eski `phStrongAcid` ve `phStrongBase` yaklaşık fonksiyonları geriye dönük uyumluluk için tutuldu; uygulamanın pH aracı yeni `phStrongWithWater` fonksiyonunu kullanır.
-
-## Denetimler
-
-- `node audit-ph-14.js`: 18 derişim/tür birleşiminde yük dengesi, suyun iyon çarpımı, seyreltik ve normal derişim sınırları kontrol edildi.
-- `node verify.js`: 17/17 önceki test geçti.
-- `node verify5.js`: 10/10 önceki test geçti.
-- `node audit-chemistry.js`, `node audit-science-12.js`, `node audit-manual-13.js`: önceki veri/soru testleri geçti.
-
-## Sınırlar
-
-Bu testler aktivite katsayılarını, yüksek iyonik gücü, çok protonlu asitleri, zayıf asit/baz dengelerini veya 25 °C dışını kapsamaz. 708 otomatik iyonik formülün gerçek bileşik olarak varlığı, 948 kayıt adının akademik kaynak karşılaştırması ve bütün soru açıklamalarının bağımsız bilimsel incelemesi tamamlanmış değildir. Gerçek Android/PWA testleri de yapılmadı.
+## Bilimsel kapsam sınırı — önemli
+Bu 5.477 denetim **5.477 bağımsız kimya doğrulaması değildir**. Çoğu şema/elektriksel yük ve şık bütünlüğü kontrolüdür. Bir formülün nötr olması onun gerçek, kararlı veya izole edilebilir bileşik olduğunu kanıtlamaz. Tüm 948 adın bağımsız IUPAC incelemesi, 241 sorunun açıklamalarının uzman denetimi, termodinamik geçerlilik, deneysel veri ve cihaz üstünde uçtan uca test henüz tamamlanmadı. Bu sürüm hâlâ beta; mevcut telefon uygulamasını yedeklemeden değiştirmeyin.
